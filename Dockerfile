@@ -21,9 +21,13 @@ COPY docker/sqlite-vec-loader /usr/src/php/ext/sqlite_vec_loader
 RUN mv /usr/src/sqlite-vec.c /usr/src/php/ext/sqlite_vec_loader/sqlite-vec.c \
     && mv /usr/src/sqlite-vec.h /usr/src/php/ext/sqlite_vec_loader/sqlite-vec.h \
     && CFLAGS="${CFLAGS} -DSQLITE_CORE" docker-php-ext-install sqlite_vec_loader \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug \
+    && echo 'xdebug.mode=coverage' > /usr/local/etc/php/conf.d/xdebug-mode.ini \
     && php -r '$db = new PDO("sqlite::memory:"); $db->exec("CREATE VIRTUAL TABLE vectors USING vec0(embedding FLOAT[2])");' \
     && php -m | grep -qx sqlite3 \
     && php -m | grep -qx pdo_sqlite \
-    && php -m | grep -qx sqlite_vec_loader
+    && php -m | grep -qx sqlite_vec_loader \
+    && php -m | grep -qx xdebug
 
 WORKDIR /app
