@@ -1,0 +1,12 @@
+parameters:
+    paths:
+        - src
+
+    level: 5
+
+    ignoreErrors:
+        -
+            message: '#^Access to an undefined property Illuminate\\Support\\Fluent\:\:\$.*\.$#'
+            identifier: property.notFound
+        -
+            identifier: trait.unused
