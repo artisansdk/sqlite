@@ -259,7 +259,15 @@ class Definition extends BaseDefinition
             );
         }
 
-        $this->embeddings[$this->cursor][$attribute] = $value;
+        $this->embeddings = array_replace(
+            $this->embeddings,
+            [
+                $this->cursor => [
+                    ...$this->embeddings[$this->cursor],
+                    $attribute => $value,
+                ],
+            ],
+        );
 
         return $this;
     }

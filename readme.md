@@ -283,6 +283,7 @@ are some Composer scripts which can assist with Code Styling and coverage report
 ```bash
 composer check
 composer coverage
+composer insights
 composer fix
 composer test
 composer retry

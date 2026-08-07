@@ -46,8 +46,8 @@ trait Scopes
         if (! empty($order)) {
             $query->orderBy(
                 is_string($order)
-                    ? $grammar->wrap($order)
-                    : $grammar->wrap($score),
+                    ? $order
+                    : $score,
             );
         }
 

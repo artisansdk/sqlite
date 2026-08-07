@@ -56,7 +56,6 @@ trait Scopes
                     DistanceMetric::COSINE => '1 - '.$distance,
                     DistanceMetric::EUCLIDEAN, DistanceMetric::MANHATTAN => '1 / (1 + '.$distance.')',
                     DistanceMetric::HAMMING => '1 - ('.$distance.' / ?)',
-                    default => throw new InvalidArgumentException("Invalid distance metric [{$metric}]."),
                 }.' as '.$grammar->wrap($relevance),
                 $metric === DistanceMetric::HAMMING ? [$dimensions] : [],
             )
@@ -72,8 +71,8 @@ trait Scopes
         if (! empty($order)) {
             $query->orderBy(
                 is_string($order)
-                    ? $grammar->wrap($order)
-                    : $grammar->wrap($metric->value),
+                    ? $order
+                    : $score,
             );
         }
 
